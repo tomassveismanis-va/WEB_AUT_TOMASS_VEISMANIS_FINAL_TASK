@@ -1,16 +1,26 @@
-import DatePickerPage from '../pages/DatePickerPage';
+import { DatePickerPage } from '../pages/DatePickerPage';
 
 describe('Date And Time Picker', () => {
-  it('should set date to 28 February 2013, 12:00 PM', () => {
-    DatePickerPage.visit();
-    DatePickerPage.openDateTimeCalendar();
+  context('Set date and time', () => {
+    beforeEach(() => {
+      DatePickerPage.visit();
+    });
 
-    DatePickerPage.selectYear(2013);
-    DatePickerPage.selectMonth('February');
-    DatePickerPage.selectDay(28);
-    DatePickerPage.selectTime('12:00');
+    it('should set date to 28 February 2013, 12:00 PM', () => {
+      const targetYear = 2013;
+      const targetMonth = 'February';
+      const targetDay = 28;
+      const targetTime = '12:00';
+      const expectedValue = 'February 28, 2013 12:00 PM';
 
-    DatePickerPage.getDateTimeInputValue()
-      .should('have.value', 'February 28, 2013 12:00 PM');
+      DatePickerPage.openDateTimeCalendar();
+      DatePickerPage.selectYear(targetYear);
+      DatePickerPage.selectMonth(targetMonth);
+      DatePickerPage.selectDay(targetDay);
+      DatePickerPage.selectTime(targetTime);
+
+      DatePickerPage.getDateTimeInputValue()
+        .should('have.value', expectedValue);
+    });
   });
 });
